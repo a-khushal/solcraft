@@ -30,11 +30,25 @@ export const useWorkspace = create<WorkspaceStore>((set) => ({
     })),
 
     removeFile: (index) => set((state) => {
+        const removedFile = state.workspace.files[index];
         const newFiles = state.workspace.files.filter((_, idx) => idx !== index);
+
+        let newActiveFile = state.workspace.activeFile;
+        if (removedFile?.name === state.workspace.activeFile) {
+            if (newFiles.length === 0) {
+                newActiveFile = "";
+            } else if (index < newFiles.length) {
+                newActiveFile = newFiles[index].name;
+            } else {
+                newActiveFile = newFiles[newFiles.length - 1].name;
+            }
+        }
+
         return {
             workspace: {
                 ...state.workspace,
-                files: newFiles
+                files: newFiles,
+                activeFile: newActiveFile
             }
         };
     }),

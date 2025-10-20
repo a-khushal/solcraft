@@ -3,6 +3,8 @@ import Image from 'next/image';
 import { useSidebar } from '@/hooks/useSidebar';
 import { useWorkspace } from '@/hooks/useWorkspace';
 import { LANGUAGES } from '@/types';
+import { useState } from 'react';
+import { extensionToLang } from '@/lib/extlang';
 
 export function SidebarStrip() {
     const toggleSidebar = useSidebar((state: any) => state.toggleSidebar);
@@ -42,10 +44,23 @@ export function ExpandableSidebar() {
     const isOpen = useSidebar((state: any) => state.isOpen);
     const addFile = useWorkspace((state: any) => state.addFile);
 
+    const [filename, setFilename] = useState("");
+
     const handleAddFile = () => {
-        const value = Math.random().toString();
-        addFile({ content: "//" + value + "...", name: value + ".ts", language: LANGUAGES.TYPESCRIPT });
+        const name = filename.trim();
+        const parts = name.split(".");
+        const ext = parts.length > 1 ? (parts.pop() || "").toLowerCase() : "";
+        const mapped = extensionToLang[ext as keyof typeof extensionToLang];
+        const language = mapped === 'rust'
+            ? LANGUAGES.RUST
+            : mapped === 'typescript'
+            ? LANGUAGES.TYPESCRIPT
+            : ext === 'rs'
+            ? LANGUAGES.RUST
+            : LANGUAGES.TYPESCRIPT;
+        addFile({ content: "//" + name + "...", name, language });
     };
+
 
     if (!isOpen) return null;
     return (
@@ -55,7 +70,13 @@ export function ExpandableSidebar() {
             <div className='w-full border-b border-neutral-700 flex justify-center items-center py-1.5'>
                 <span className='text-sm text-neutral-400 font-medium tracking-tight'>EXPLORER</span>
             </div>
-            <button onClick={handleAddFile}>
+            <input
+                type="text"
+                onChange={(e) => setFilename(e.target.value)}
+                value={filename}
+                className='border border-white'
+            />
+            <button onClick={handleAddFile} disabled={!filename}>
                 create file+
             </button>
         </div>

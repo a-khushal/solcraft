@@ -11,7 +11,7 @@ export default function Topbar() {
     const setActiveFile = useWorkspace((state) => state.setActiveFile)
 
     return (
-        <div className="w-full flex bg-neutral-900 border-b border-neutral-700 select-none">
+        <div className="w-full flex bg-neutral-900 border-b border-neutral-700 select-none shadow-lg shadow-neutral-950/80">
             {workspace.files.map((file: WorkspaceFile, i: number) => (
                 <div
                     key={i}
