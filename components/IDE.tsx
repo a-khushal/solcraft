@@ -1,9 +1,11 @@
 'use client'
 
 import React, { useRef, useEffect } from 'react';
-import { STORAGE_KEY } from '@/lib/constants';
+import { useWorkspace } from '@/hooks/useWorkspace';
 
 function IDE() {
+    const workspace = useWorkspace((state: any) => state.workspace);
+    const content = workspace.files.find((f: any) => f.name === workspace.activeFile)?.content || "// type here...";
     const containerRef = useRef<HTMLDivElement | null>(null);
 
     useEffect(() => {
@@ -24,7 +26,7 @@ function IDE() {
                 },
             };
 
-            const initial = localStorage.getItem(STORAGE_KEY) ?? '// start typing...';
+            const initial = content;
             editor = monaco.editor.create(containerRef.current!, {
                 value: initial,
                 language: 'rust',
@@ -36,7 +38,7 @@ function IDE() {
 
             disposeChange = editor.onDidChangeModelContent(() => {
                 const currentValue = editor?.getValue() ?? '';
-                localStorage.setItem(STORAGE_KEY, currentValue);
+                // localStorage.setItem(STORAGE_KEY, currentValue);
             });
         };
 

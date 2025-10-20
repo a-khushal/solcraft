@@ -1,11 +1,17 @@
-export type File = {
+
+export enum LANGUAGES {
+    RUST,
+    TYPESCRIPT
+}
+
+export type WorkspaceFile = {
     name: string;
-    language: string;
+    language: LANGUAGES;
     content: string;
 };
 
 export type Workspace = {
     name: string;
-    files: File[];
+    files: WorkspaceFile[];
     activeFile: string;
 };
