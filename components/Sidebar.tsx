@@ -41,6 +41,9 @@ export function ExpandableSidebar({ isOpen }: { isOpen: boolean }) {
         <div
             className="fixed top-0 left-11 z-20 h-screen w-[20rem] bg-neutral-900 border-r border-neutral-700"
         >
+            <div className='w-full border-b border-neutral-700 flex justify-center items-center py-1.5'>
+                <span className='text-sm text-neutral-400 font-medium tracking-tight'>EXPLORER</span>
+            </div>
         </div>
     );
 }
