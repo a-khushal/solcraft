@@ -13,7 +13,7 @@ export function SidebarStrip({ toggleSidebar }: { toggleSidebar: () => void }) {
             {buttonData.map((btn) => (
                 <button
                     key={btn.title}
-                    className="my-3 p-0 cursor-pointer flex items-center justify-center hover:opacity-75 transition-opacity"
+                    className="my-3 p-0 cursor-pointer flex items-center justify-center"
                     title={btn.title}
                     type="button"
                     onClick={toggleSidebar}
@@ -24,7 +24,7 @@ export function SidebarStrip({ toggleSidebar }: { toggleSidebar: () => void }) {
                             alt={btn.title}
                             width={32}
                             height={32}
-                            className="w-6 h-6 object-contain filter invert opacity-40"
+                            className="w-6 h-6 object-contain filter invert opacity-40 hover:opacity-85"
                             priority
                         />
                     </span>
@@ -34,8 +34,13 @@ export function SidebarStrip({ toggleSidebar }: { toggleSidebar: () => void }) {
     );
 }
 
-
-export function ExpandableSidebar({ isOpen }: { isOpen: boolean }) {
+export function ExpandableSidebar({
+    isOpen,
+    onCreateFile,
+}: {
+    isOpen: boolean,
+    onCreateFile: () => void
+}) {
     if (!isOpen) return null;
     return (
         <div
@@ -44,6 +49,7 @@ export function ExpandableSidebar({ isOpen }: { isOpen: boolean }) {
             <div className='w-full border-b border-neutral-700 flex justify-center items-center py-1.5'>
                 <span className='text-sm text-neutral-400 font-medium tracking-tight'>EXPLORER</span>
             </div>
+            <button onClick={onCreateFile}>create file+</button>
         </div>
     );
 }
