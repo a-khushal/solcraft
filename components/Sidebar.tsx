@@ -43,7 +43,8 @@ export function ExpandableSidebar() {
     const addFile = useWorkspace((state: any) => state.addFile);
 
     const handleAddFile = () => {
-        addFile({ content: "// type here...", name: Math.random().toString() + ".ts", language: LANGUAGES.TYPESCRIPT });
+        const value = Math.random().toString();
+        addFile({ content: "//" + value + "...", name: value + ".ts", language: LANGUAGES.TYPESCRIPT });
     };
 
     if (!isOpen) return null;

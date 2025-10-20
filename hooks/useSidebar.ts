@@ -2,9 +2,14 @@ import { create } from 'zustand';
 import { useEffect } from 'react';
 import { SIDEBAR_OPEN_KEY } from '@/lib/constants';
 
-export const useSidebar = create((set) => ({
+type SidebarStore = {
+    isOpen: boolean;
+    toggleSidebar: () => void;
+};
+
+export const useSidebar = create<SidebarStore>((set) => ({
     isOpen: false,
-    toggleSidebar: () => set((state: any) => {
+    toggleSidebar: () => set((state) => {
         const newOpen = !state.isOpen;
         if (typeof window !== 'undefined') {
             localStorage.setItem(SIDEBAR_OPEN_KEY, String(newOpen));

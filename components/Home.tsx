@@ -7,7 +7,7 @@ import IDE from "@/components/IDE";
 
 export default function Home() {
   useSidebarSync();
-  const isOpen = useSidebar((state: any) => state.isOpen);
+  const isOpen = useSidebar((state: { isOpen: boolean }) => state.isOpen);
 
   return (
     <>

@@ -1,7 +1,14 @@
 import { create } from 'zustand';
 import { Workspace, WorkspaceFile, LANGUAGES } from '@/types';
 
-export const useWorkspace = create((set) => ({
+type WorkspaceStore = {
+    workspace: Workspace;
+    addFile: (file: WorkspaceFile) => void;
+    removeFile: (index: number) => void;
+    setActiveFile: (fileName: string) => void;
+};
+
+export const useWorkspace = create<WorkspaceStore>((set) => ({
     workspace: {
         name: 'workspace1',
         files: [
@@ -14,7 +21,7 @@ export const useWorkspace = create((set) => ({
         activeFile: "lib.rs"
     },
 
-    addFile: (file: WorkspaceFile) => set((state: any) => ({
+    addFile: (file) => set((state) => ({
         workspace: {
             ...state.workspace,
             files: [...state.workspace.files, file],
@@ -22,13 +29,20 @@ export const useWorkspace = create((set) => ({
         }
     })),
 
-    removeFile: (index: number) => set((state: any) => {
-        const newFiles = state.workspace.files.filter((_: any, idx: number) => idx !== index);
+    removeFile: (index) => set((state) => {
+        const newFiles = state.workspace.files.filter((_, idx) => idx !== index);
         return {
             workspace: {
                 ...state.workspace,
                 files: newFiles
             }
         };
-    })
+    }),
+
+    setActiveFile: (fileName) => set((state) => ({
+        workspace: {
+            ...state.workspace,
+            activeFile: fileName
+        }
+    }))
 }));
