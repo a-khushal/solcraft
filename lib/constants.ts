@@ -1,1 +1,1 @@
-export const STORAGE_KEY = 'monaco-code';
+export const SIDEBAR_OPEN_KEY = 'solcraft_sidebar_is_open';

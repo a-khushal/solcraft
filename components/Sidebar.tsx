@@ -40,13 +40,13 @@ export function SidebarStrip() {
 
 export function ExpandableSidebar() {
     const isOpen = useSidebar((state: any) => state.isOpen);
-    if (!isOpen) return null;
-
     const addFile = useWorkspace((state: any) => state.addFile);
+
     const handleAddFile = () => {
-        addFile({ content: "// type here...", name: Math.random().toString()+".ts", language: LANGUAGES.TYPESCRIPT });
+        addFile({ content: "// type here...", name: Math.random().toString() + ".ts", language: LANGUAGES.TYPESCRIPT });
     };
 
+    if (!isOpen) return null;
     return (
         <div
             className="fixed top-0 left-11 z-20 h-screen w-[20rem] bg-neutral-900 border-r border-neutral-700"

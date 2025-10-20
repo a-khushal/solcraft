@@ -47,8 +47,9 @@ function IDE() {
         return () => {
             disposeChange?.dispose();
             editor?.dispose();
+            editor = null;
         };
-    }, []);
+    }, [content]);
 
     return (
         <div ref={containerRef} style={{ height: '100vh', width: '100%' }} />
