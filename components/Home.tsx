@@ -1,9 +1,10 @@
 'use client'
 
 import { useSidebar, useSidebarSync } from "@/hooks/useSidebar";
-import { ExpandableSidebar, SidebarStrip } from "@/components/Sidebar";
-import Topbar from "@/components/Topbar";
-import IDE from "@/components/IDE";
+import SidebarStrip from "./Sidebar/SidebarStrip";
+import ExpandableSidebar from "./Sidebar/ExpandableSidebar";
+import IDE from "./IDE";
+import Topbar from "./Topbar";
 
 export default function Home() {
   useSidebarSync();
