@@ -83,14 +83,11 @@ function IDE() {
         if (!editorRef.current) return;
         const activeFile = workspace.activeFile;
         const newContent = workspace.files.find((f: any) => f.name === activeFile)?.content || "// type here...";
-        
-        // Only update if the content for this file has actually changed
-        const cachedContent = fileContentCacheRef.current.get(activeFile);
-        if (cachedContent !== newContent) {
+
+        const editorContent = editorRef.current.getValue();
+        if (editorContent !== newContent) {
+            editorRef.current.setValue(newContent);
             fileContentCacheRef.current.set(activeFile, newContent);
-            if (editorRef.current.getValue() !== newContent) {
-                editorRef.current.setValue(newContent);
-            }
         }
     }, [workspace.activeFile, workspace.files]);
 
