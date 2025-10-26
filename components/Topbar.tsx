@@ -15,7 +15,7 @@ export default function Topbar() {
             {workspace.files.map((file: WorkspaceFile, i: number) => (
                 <div
                     key={i}
-                    className={`group flex items-center justify-center gap-1 px-3 py-2 border-x border-neutral-700 text-xs truncate cursor-pointer hover:bg-neutral-800 text-neutral-400 font-medium tracking-tight ${workspace.activeFile === file.name ? "bg-[#1e1e1e]" : ""}`}
+                    className={`group flex items-center justify-center gap-1 px-3 py-2 border-x border-neutral-700 text-xs truncate cursor-pointer hover:bg-neutral-800 text-neutral-400 font-medium tracking-tight ${workspace.activeFile === file.name ? "bg-neutral-800" : ""}`}
                 >
                     <span onClick={() => setActiveFile(file.name)}>
                         <span>

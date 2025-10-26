@@ -2,8 +2,7 @@
 
 import { useSidebar } from "@/hooks/useSidebar";
 import { useWorkspace } from "@/hooks/useWorkspace";
-import { extensionToLang } from "@/lib/extlang";
-import { LANGUAGES } from "@/types";
+import { getLanguageFromFilename } from "@/lib/extlang";
 import { useState } from "react";
 
 export default function ExpandableSidebar() {
@@ -13,16 +12,7 @@ export default function ExpandableSidebar() {
 
     const handleAddFile = () => {
         const name = filename.trim();
-        const parts = name.split(".");
-        const ext = parts.length > 1 ? (parts.pop() || "").toLowerCase() : "";
-        const mapped = extensionToLang[ext as keyof typeof extensionToLang];
-        const language = mapped === 'rust'
-            ? LANGUAGES.RUST
-            : mapped === 'typescript'
-                ? LANGUAGES.TYPESCRIPT
-                : ext === 'rs'
-                    ? LANGUAGES.RUST
-                    : LANGUAGES.TYPESCRIPT;
+        const language = getLanguageFromFilename(name);
         addFile({ content: "//" + name + "...", name, language });
         setFilename("");
     };
